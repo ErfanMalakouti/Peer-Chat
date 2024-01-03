@@ -1,0 +1,10 @@
+#videos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.video-palyer {
+  background-color: black;
+  width: 100%;
+  height: 500px;
+}
