@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.lobby-container {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#join-form {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  width: 400px;
+  padding: 30px;
+  background: white;
+  height: 300px;
+  border-radius: 5px;
+}
+
+#join-form > input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.submit-btn {
+  background-color: purple;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.3);
+}

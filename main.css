@@ -1,10 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #videos {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
+  height: 100vh;
+  width: 100vw;
 }
 .video-palyer {
   background-color: black;
   width: 100%;
-  height: 500px;
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#user-2 {
+  display: none;
+}
+
+.small-frame {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  height: 170px;
+  width: 300px;
+  border-radius: 5px;
+  border: purple 1px solid;
+  z-index: 999;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+}
+
+.button {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: purple;
+  color: white;
+  padding: 25px;
+  font-size: 25px;
+  cursor: pointer;
+}
+.button:hover {
+  filter: brightness(1.2);
+}
+
+#leave-btn {
+  background-color: crimson;
+}
+
+#mute-cam,
+#mute-mic {
+  display: none;
+}
+
+a {
+  text-decoration: none;
 }
