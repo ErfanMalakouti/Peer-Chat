@@ -5,6 +5,7 @@ let uid = String(Math.floor(Math.random() * 10000));
 let client;
 let channel;
 
+//find room id
 let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
 let roomId = urlParams.get("room");
@@ -17,6 +18,7 @@ let localStream;
 let remoteStream;
 let peerConnection;
 
+//free stun servers provided by google
 const servers = {
   iceServers: [
     {
@@ -25,6 +27,7 @@ const servers = {
   ],
 };
 
+//video quality settings and voice constraints
 let constraints = {
   video: {
     width: { min: 640, ideal: 1920, max: 1920 },
@@ -33,6 +36,7 @@ let constraints = {
   audio: true,
 };
 
+//create client and handle stream
 let init = async () => {
   client = await AgoraRTM.createInstance(APP_ID);
   await client.login({ uid, token });
@@ -49,11 +53,13 @@ let init = async () => {
   document.getElementById("user-1").srcObject = localStream;
 };
 
+//remove user on leaving session
 let handleUserLeft = (MemberId) => {
   document.getElementById("user-2").style.display = "none";
   document.getElementById("user-1").classList.remove("small-frame");
 };
 
+//handle incoming messages and theire type
 let handleMessageFromPeer = async (message, MemberId) => {
   message = JSON.parse(message.text);
 
@@ -72,11 +78,13 @@ let handleMessageFromPeer = async (message, MemberId) => {
   }
 };
 
+//add user on join session then create offer
 let handleUserJoined = async (MemberId) => {
   console.log("A new user joined the channel:", MemberId);
   createOffer(MemberId);
 };
 
+//creat webRTC connection and check use's devices accessibiltiy, handle candidates and media tracks
 let createPeerConnection = async (MemberId) => {
   peerConnection = new RTCPeerConnection(servers);
 
@@ -119,6 +127,7 @@ let createPeerConnection = async (MemberId) => {
   };
 };
 
+//create offer for user and set local description
 let createOffer = async (MemberId) => {
   await createPeerConnection(MemberId);
 
@@ -131,6 +140,7 @@ let createOffer = async (MemberId) => {
   );
 };
 
+//create answer for user and set local description
 let createAnswer = async (MemberId, offer) => {
   await createPeerConnection(MemberId);
 
@@ -145,17 +155,20 @@ let createAnswer = async (MemberId, offer) => {
   );
 };
 
+//add remote description
 let addAnswer = async (answer) => {
   if (!peerConnection.currentRemoteDescription) {
     peerConnection.setRemoteDescription(answer);
   }
 };
 
+// handle remove user on leaving session
 let leaveChannel = async () => {
   await channel.leave();
   await client.logout();
 };
 
+//handle camera accessibilty
 let toggleCamera = async () => {
   let videoTrack = localStream
     .getTracks()
@@ -172,6 +185,7 @@ let toggleCamera = async () => {
   }
 };
 
+//handle microphone accessibilty
 let toggleMic = async () => {
   let audioTrack = localStream
     .getTracks()
@@ -188,8 +202,10 @@ let toggleMic = async () => {
   }
 };
 
+//remove user on leave manualy
 window.addEventListener("beforeunload", leaveChannel);
 
+//add functionality to buttons
 document.getElementById("camera-btn").addEventListener("click", toggleCamera);
 document.getElementById("mic-btn").addEventListener("click", toggleMic);
 
